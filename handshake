@@ -1,0 +1,86 @@
+#server
+import socket
+import bluetooth
+
+host = ''
+port = 6 # 5560
+
+storedValue = "hola"
+
+def setupServer():
+
+# s = socket.socket(socket.AF_NET, socket.SOCK_STREAM)
+s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+print ("Socket created")
+try: 
+s.bind((host,port))
+except socket.error as msg:
+print (msg)
+print ("Socket bind complete")
+return s
+
+def setupConnection():
+num_conn = 2
+s.listen(num_conn) # Number of connections at time
+conn,address = s.accept()
+print ("Connected to : " + address)
+return conn
+
+def GET():
+reply = storedVAlue
+return reply
+
+def REPEAT(dataMessage):
+reply = dataMessage[1]
+return reply
+
+def dataTransfer(conn):
+while True:
+data = conn.recv(1024) # Receive data on buffer
+data = data.decode ('utf-8')
+# Split the data to the command 
+dataMessage = data.split(' ', 1)
+command = dataMessage[0]
+if command == 'GET'():
+reply = GET()
+elif command == 'REPEAT':
+reply = REPEAT(dataMessage)
+elif command 'EXIT':
+print("Client disconnected")
+s.close()
+break
+else 
+reply = 'Unknown commmad'
+conn.sendall (str.encode(reply))
+print("Data send") 
+conn.close()
+
+s = setupServer()
+while True:
+try:
+conn = setupConnection
+dataTransfer (conn)
+except:
+break
+
+#Client
+import socket
+import bluetooth
+
+host = ''
+port = 6 # 5560
+
+# s = socket.socket(socket.AF_NET, socket.SOCK_STREAM)
+s = bluetooth.Bluetoothsocket(bluetooth.RFCOMM)
+s.connect((host,port))
+
+while True:
+
+command = input("Enter your command")
+if command == 'EXIT':
+s.send(str.encode(command))
+break
+s.send(str.encode(command))
+reply = s.recv(1024)
+print (reply.decode ('utf-8'))
+s.close()
