@@ -1,0 +1,19 @@
+#tratamientoimagen
+from PIL import Image
+
+def half1() :
+    img = Image.open("/home/pi/imagen.jpg")
+    area = (0,0,122,225)
+    crop_img = img.crop(area)
+    crop_img.save("crop_img.jpg")
+
+
+def half2() :
+    img = Image.open("/home/pi/imagen.jpg")
+    area = (122,0,225,225)
+    crop_img = img.crop(area)
+    crop_img.save("crop_img2.jpg")
+
+
+half1()
+half2()
